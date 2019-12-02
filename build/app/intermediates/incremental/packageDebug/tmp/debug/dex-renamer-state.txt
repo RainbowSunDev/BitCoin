@@ -1,0 +1,4 @@
+#Mon Dec 02 16:10:13 IST 2019
+base.0=D\:\\Android\\AS_Projects\\bitcoin-ticker-flutter-master\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
