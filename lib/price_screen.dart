@@ -26,6 +26,15 @@ class _PriceScreenState extends State<PriceScreen> {
     return myDropDownItems;
   }
 
+  List<Text> getMyItems(){
+    List<Text> myList=[];
+    for(String myCur in currenciesList){
+      myList.add(Text(myCur));
+    }
+
+    return(myList);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,20 +77,7 @@ class _PriceScreenState extends State<PriceScreen> {
                 print(selectedIndex);
               } ,
               itemExtent: 32.0,
-              children: <Widget>[
-                Text('USD'),
-                Text('NOK'),
-                Text('EUR'),
-                Text('USD'),
-                Text('NOK'),
-                Text('EUR'),
-                Text('USD'),
-                Text('NOK'),
-                Text('EUR'),
-                Text('USD'),
-                Text('NOK'),
-                Text('EUR'),
-              ],
+              children:getMyItems()
 
             ),
           ),
