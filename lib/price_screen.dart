@@ -13,11 +13,11 @@ class _PriceScreenState extends State<PriceScreen> {
 
   List<DropdownMenuItem> getCur(){
     List<DropdownMenuItem<String>> myDropDownItems=[];
-    for(int i=0;i<currenciesList.length;i++){
+    for(String myCur in currenciesList ){
       myDropDownItems.add(
         DropdownMenuItem(
-          value: currenciesList[i],
-          child: Text(currenciesList[i]),
+          value: myCur,
+          child: Text(myCur),
         )
       );
     }
