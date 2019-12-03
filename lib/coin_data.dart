@@ -35,9 +35,8 @@ const List<String> cryptoList = [
 
 const bitcoinAverageURL ='https://apiv2.bitcoinaverage.com/indices/global/ticker';
 class CoinData {
-
-  Future getCoinData() async {
-    String requestURL = '$bitcoinAverageURL/BTCUSD';
+  Future getCoinData(String selectedCurrency) async {
+    String requestURL = '$bitcoinAverageURL/BTC$selectedCurrency';
     http.Response response = await http.get(requestURL);
     if (response.statusCode == 200) {
       //Use the 'dart:convert' package to decode the JSON data that comes back from BitcoinAverage.
@@ -48,6 +47,5 @@ class CoinData {
       print(response.statusCode);
       throw 'Problem with the get request';
     }
-
   }
 }

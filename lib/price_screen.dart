@@ -11,26 +11,23 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCur = 'USD';
-  
 
-  CupertinoPicker getCupertinoPicker(){
+  CupertinoPicker getCupertinoPicker() {
     List<Text> myList = [];
     for (String myCur in currenciesList) {
       myList.add(Text(myCur));
     }
 
     return CupertinoPicker(
-      backgroundColor: Colors.lightBlue,
-      onSelectedItemChanged: (selectedIndex) {
-        print(selectedIndex);
-      },
-      itemExtent: 32.0,
-      children: myList
-    );
+        backgroundColor: Colors.lightBlue,
+        onSelectedItemChanged: (selectedIndex) {
+          print(selectedIndex);
+        },
+        itemExtent: 32.0,
+        children: myList);
   }
 
   DropdownButton<String> getDropDownButton() {
-    
     List<DropdownMenuItem<String>> myDropDownItems = [];
     for (String myCur in currenciesList) {
       myDropDownItems.add(DropdownMenuItem(
@@ -45,16 +42,16 @@ class _PriceScreenState extends State<PriceScreen> {
       onChanged: (value) {
         setState(() {
           selectedCur = value;
+          getData();
         });
       },
     );
   }
 
-
   String bitCoinValueInUSD = '?';
   void getData() async {
     try {
-      double data = await CoinData().getCoinData();
+      double data = await CoinData().getCoinData(selectedCur);
       setState(() {
         bitCoinValueInUSD = data.toStringAsFixed(0);
       });
@@ -63,12 +60,12 @@ class _PriceScreenState extends State<PriceScreen> {
     }
   }
 
-
   @override
-  void initState(){
+  void initState() {
     getData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,35 +76,40 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Text(
-                  '1 BTC = $bitCoinValueInUSD USD',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          cardWidget('BTC','$bitCoinValueInUSD','$selectedCur'),
           Container(
             height: 150.0,
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: Platform.isAndroid?getDropDownButton():getCupertinoPicker(),
+            child:
+                Platform.isAndroid ? getDropDownButton() : getCupertinoPicker(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget cardWidget(String btName,String curVal,String curName) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+      child: Card(
+        color: Colors.lightBlueAccent,
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+          child: Text(
+            '1 $btName = $curVal $curName',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }
