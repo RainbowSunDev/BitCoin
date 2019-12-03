@@ -10,6 +10,21 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCur='USD';
 
+
+  List<DropdownMenuItem> getCur(){
+    List<DropdownMenuItem<String>> myDropDownItems=[];
+    for(int i=0;i<currenciesList.length;i++){
+      myDropDownItems.add(
+        DropdownMenuItem(
+          value: currenciesList[i],
+          child: Text(currenciesList[i]),
+        )
+      );
+    }
+
+    return myDropDownItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,21 +63,7 @@ class _PriceScreenState extends State<PriceScreen> {
             color: Colors.lightBlue,
             child: DropdownButton<String>(
               value: selectedCur,
-              items: [
-                DropdownMenuItem(
-                  child: Text("USD"),
-                  value: 'USD',
-                ),
-                DropdownMenuItem(
-                  child: Text("EUR"),
-                  value: 'EUR',
-                ),
-                DropdownMenuItem(
-                  child: Text("GBP"),
-                  value: 'GBP',
-                ),
-
-              ],
+              items: getCur() ,
               onChanged: (value){
                 setState(() {
                   selectedCur=value;
