@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import './coin_data.dart';
 
@@ -61,7 +62,40 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: DropdownButton<String>(
+            child: CupertinoPicker(
+              backgroundColor: Colors.lightBlue,
+              onSelectedItemChanged:(selectedIndex){
+                print(selectedIndex);
+              } ,
+              itemExtent: 32.0,
+              children: <Widget>[
+                Text('USD'),
+                Text('NOK'),
+                Text('EUR'),
+                Text('USD'),
+                Text('NOK'),
+                Text('EUR'),
+                Text('USD'),
+                Text('NOK'),
+                Text('EUR'),
+                Text('USD'),
+                Text('NOK'),
+                Text('EUR'),
+              ],
+
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/*
+
+
+DropdownButton<String>(
               value: selectedCur,
               items: getCur() ,
               onChanged: (value){
@@ -71,9 +105,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+
+
+
+*/
