@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Dec 03 09:32:10 IST 2019
+#Tue Dec 03 10:15:31 IST 2019
 4.path=flutter_assets/FontManifest.json
 8.set=DEX
 6.path=flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf

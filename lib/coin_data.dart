@@ -36,16 +36,23 @@ const List<String> cryptoList = [
 const bitcoinAverageURL ='https://apiv2.bitcoinaverage.com/indices/global/ticker';
 class CoinData {
   Future getCoinData(String selectedCurrency) async {
-    String requestURL = '$bitcoinAverageURL/BTC$selectedCurrency';
-    http.Response response = await http.get(requestURL);
-    if (response.statusCode == 200) {
-      //Use the 'dart:convert' package to decode the JSON data that comes back from BitcoinAverage.
-      var decodedData = jsonDecode(response.body);
-      var lastPrice = decodedData['last'];
-      return lastPrice;
-    } else {
-      print(response.statusCode);
-      throw 'Problem with the get request';
+    
+    Map<String, String> cryptoPrices = {};
+    //create Map to map Crypto Name and price
+
+    //now for each crypto name make loop to get price and map CryptoName and Value add it to the 
+    for (String crypto in cryptoList) {
+      String requestURL = '$bitcoinAverageURL/$crypto$selectedCurrency';
+      http.Response response = await http.get(requestURL);
+      if (response.statusCode == 200) {
+        var decodedData = jsonDecode(response.body);
+        double lastPrice = decodedData['last'];
+        cryptoPrices[crypto] = lastPrice.toStringAsFixed(0);
+      } else {
+        print(response.statusCode);
+        throw 'Problem with the get request';
+      }
     }
+    return cryptoPrices;
   }
 }
